@@ -13,7 +13,7 @@ import {User, Lock} from '@element-plus/icons-vue'
         <div style="font-size: 25px; color: black; margin-top: 150px; font-weight: bold">登录</div>
         <div style="font-size: 14px; color: #757575;margin-top: 3px">在进入系统之前请先输入用户名和密码进行登录</div>
         <div style="margin-top: 50px">
-          <el-input type="text" placeholder="用户名/邮箱/">
+          <el-input type="text" placeholder="用户名/邮箱">
             <template #prefix>
               <el-icon><User /></el-icon>
             </template>
