@@ -18,3 +18,7 @@
 1. 无论是否已经登录，直接向后端请求用户信息
 2. 如果请求成功，那么说明肯定是已经登录了
 3. 如果请求失败，那么说明没有登录，跳转到登录界面
+
+
+#登录界面
+![image](https://github.com/Royster1/SpringBoot-Vue-Template-Session/assets/95138253/00c1443f-9243-4116-b661-ccd6c5d83bff)
