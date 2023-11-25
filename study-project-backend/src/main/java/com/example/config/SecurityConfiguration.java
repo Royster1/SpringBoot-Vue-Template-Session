@@ -16,6 +16,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -25,9 +27,11 @@ import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 import javax.xml.stream.events.Comment;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.security.Permission;
 
 @Configuration
 @EnableWebSecurity
@@ -36,8 +40,12 @@ public class SecurityConfiguration {
     @Resource
     AuthorizeService authorizeService;
 
+    @Resource
+    DataSource dataSource;
+
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+                                           PersistentTokenRepository repository) throws Exception {
         return http
                 .authorizeHttpRequests()
                 .anyRequest().authenticated() // 全部都需要登录
@@ -51,6 +59,11 @@ public class SecurityConfiguration {
                 .logoutUrl("/api/auth/logout") // 退出登陆
                 .logoutSuccessHandler(this::onAuthenticationSuccess)
                 .and()
+                .rememberMe()
+                .rememberMeParameter("remember")
+                .tokenRepository(repository)
+                .tokenValiditySeconds(3600 * 24 * 7) // 7天免登录
+                .and()
                 // .userDetailsService(authorizeService) 默认账号密码登录
                 .csrf()
                 .disable()
@@ -61,6 +74,15 @@ public class SecurityConfiguration {
                 .authenticationEntryPoint(this::onAuthenticationFailure) // 处理发生异常, 没有权限
                 .and()
                 .build();
+    }
+
+    // jdbc保存cookie
+    @Bean
+    public PersistentTokenRepository tokenRepository(){
+        JdbcTokenRepositoryImpl jdbcTokenRepository = new JdbcTokenRepositoryImpl();
+        jdbcTokenRepository.setDataSource(dataSource);
+        jdbcTokenRepository.setCreateTableOnStartup(false); // 一开始创建表格要改为true
+        return jdbcTokenRepository;
     }
 
     // 跨域

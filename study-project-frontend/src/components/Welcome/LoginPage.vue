@@ -15,16 +15,6 @@
       </el-input>
     </div>
 
-    <div style="margin-top: 40px">
-      <el-button @click="login" style="width: 270px;" type="success" plain>立即登录</el-button>
-    </div>
-    <el-divider>
-      <span style="color: #757575;font-size: 13px">没有账号</span>
-    </el-divider>
-    <div style="margin-top: 40px">
-      <el-button style="width: 270px" type="warning" plain>注册账号</el-button>
-    </div>
-
     <el-row style="margin-top: 12px">
       <el-col :span="12" style="text-align: left">
         <el-checkbox v-model="form.remember" label="记住我" />
@@ -33,6 +23,18 @@
         <el-link style="font-size: 12px">忘记密码?</el-link>
       </el-col>
     </el-row>
+
+    <div style="margin-top: 40px">
+      <el-button @click="login"  style="width: 270px;" type="success" plain>立即登录</el-button>
+    </div>
+    <el-divider>
+      <span style="color: #757575;font-size: 13px">没有账号</span>
+    </el-divider>
+    <div style="margin-top: 40px">
+      <el-button style="width: 270px" type="warning" plain>注册账号</el-button>
+    </div>
+
+
   </div>
 </template>
 
@@ -63,6 +65,7 @@
       })
     }
   }
+
 </script>
 
 <style scoped>
