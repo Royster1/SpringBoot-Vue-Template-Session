@@ -9,10 +9,12 @@
       <div style="margin-top: 10px">在这里你可以学习Java整套系列, 如何搭建网站</div>
       <div style="margin-top: 5px">0 基础也能轻松入门Java</div>
     </div>
-    <div style="width: 400px;">
-      <transition name="el-fade-in-linear">
-        <router-view/>
-      </transition>
+    <div style="width: 400px; z-index: 1">
+      <router-view v-slot:="{ Component}">
+        <transition name="el-fade-in-linear" mode="out-in">
+          <component :is="Component"/>
+        </transition>
+      </router-view>
     </div>
   </div>
 </template>
