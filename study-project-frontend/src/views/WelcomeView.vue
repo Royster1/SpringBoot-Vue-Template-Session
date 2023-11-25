@@ -9,8 +9,10 @@
       <div style="margin-top: 10px">在这里你可以学习Java整套系列, 如何搭建网站</div>
       <div style="margin-top: 5px">0 基础也能轻松入门Java</div>
     </div>
-    <div style="width: 400px;background-color: white;">
-      <router-view/>
+    <div style="width: 400px;">
+      <transition name="el-fade-in-linear">
+        <router-view/>
+      </transition>
     </div>
   </div>
 </template>
