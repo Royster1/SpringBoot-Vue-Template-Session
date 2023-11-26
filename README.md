@@ -22,3 +22,7 @@
 
 # 登录界面
 ![image](https://github.com/Royster1/SpringBoot-Vue-Template-Session/assets/95138253/00c1443f-9243-4116-b661-ccd6c5d83bff)
+
+# 注册界面
+![image](https://github.com/Royster1/SpringBoot-Vue-Template-Session/assets/95138253/4f185998-ff70-404a-a7ac-59ace98f2575)
+
