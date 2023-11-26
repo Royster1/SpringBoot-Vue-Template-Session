@@ -3,7 +3,7 @@
     <div style="font-size: 25px; color: black; margin-top: 150px; font-weight: bold">注册新用户</div>
     <div style="font-size: 14px; color: #757575;margin-top: 3px">欢迎注册我们的学习平台,请在下方填写相关信息</div>
     <div style="margin-top: 50px">
-      <el-form :model="form" :rules="rules" @validate="onValidate"> <!--Element内置表单校验-->
+      <el-form :model="form" :rules="rules" @validate="onValidate" ref="formRef"> <!--Element内置表单校验-->
         <el-form-item prop="username">
           <el-input v-model="form.username" type="text" placeholder="用户名">
             <template #prefix>
@@ -18,7 +18,7 @@
             </template>
           </el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="code">
           <el-row gutter="15">
             <el-col :span="16">
               <el-input v-model="form.code" type="text" placeholder="请输入验证码">
@@ -50,7 +50,7 @@
 
     </div>
     <div style="margin-top: 50px">
-      <el-button style="width: 270px" type="warning" plain>
+      <el-button style="width: 270px" type="warning" plain @click="register">
         立即注册
       </el-button>
     </div>
@@ -66,6 +66,7 @@
 import {User, Lock, Message, EditPen} from '@element-plus/icons-vue'
 import router from '../../router'
 import {reactive, ref} from 'vue'
+import {ElMessage} from 'element-plus'
 
 const form = reactive({
   username: '',
@@ -113,6 +114,9 @@ const rules = {
     {type: 'email',
       message: '请输入合法的电子邮件地址',
       trigger: ['blur', 'change']}
+  ],
+  code: [
+    {required: true, message: '请输入验证码', trigger: ['blur', 'change']}
   ]
 }
 // 邮箱必须正确才能获取验证码
@@ -123,6 +127,17 @@ const onValidate = (prop, isValid) => { // 任一表单项被校验后触发
   }
 }
 
+// 立即注册校验所有表单
+const formRef = ref()
+const register = () => {
+  formRef.value.validate((isValid) => {
+    if (isValid) {
+      // 发送请求
+    } else {
+      ElMessage.warning('请完整填写注册表单内容! ')
+    }
+  })
+}
 
 </script>
 <style scoped>

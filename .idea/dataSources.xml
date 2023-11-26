@@ -8,5 +8,14 @@
       <jdbc-url>jdbc:mysql://localhost:3306/sp3_vue3_session</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="study-project-backend/Hibernate" uuid="28a0476f-ba89-42f3-929f-29cbe079dd09">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/sp3_vue3_session?useUnicode=true&amp;characterEncoding=utf-8</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
