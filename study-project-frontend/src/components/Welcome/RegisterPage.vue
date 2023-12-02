@@ -5,7 +5,7 @@
     <div style="margin-top: 50px">
       <el-form :model="form" :rules="rules" @validate="onValidate" ref="formRef"> <!--Element内置表单校验-->
         <el-form-item prop="username">
-          <el-input v-model="form.username" type="text" placeholder="用户名">
+          <el-input v-model="form.username" :maxlength="8" type="text" placeholder="用户名">
             <template #prefix>
               <el-icon><User /></el-icon>
             </template>
@@ -21,7 +21,7 @@
         <el-form-item prop="code">
           <el-row gutter="15">
             <el-col :span="16">
-              <el-input v-model="form.code" type="text" placeholder="请输入验证码">
+              <el-input v-model="form.code" :maxlength="6" type="text" placeholder="请输入验证码">
                 <template #prefix>
                   <el-icon><EditPen /></el-icon>
                 </template>
@@ -33,14 +33,14 @@
           </el-row>
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="form.password" type="password" placeholder="密码">
+          <el-input v-model="form.password" :maxlength="16" type="password" placeholder="密码">
             <template #prefix>
               <el-icon><Lock /></el-icon>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item prop="password_repeat">
-          <el-input v-model="form.password_repeat" type="password" placeholder="重复密码" >
+          <el-input v-model="form.password_repeat" :maxlength="16" type="password" placeholder="重复密码" >
             <template #prefix>
               <el-icon><Lock /></el-icon>
             </template>
@@ -81,7 +81,7 @@ const form = reactive({
 const validateUsername = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('请输入用户名'))
-  } else if (!/^[\u4e00-\u9fa5a-zA-Z]+$/.test(value)) {
+  } else if (!/^[\u4e00-\u9fa5a-zA-Z0-9]+$/.test(value)) {
     callback(new Error('用户名不能包含特殊字符, 只能是中文/英文'))
   } else {
     callback()
@@ -134,6 +134,15 @@ const register = () => {
   formRef.value.validate((isValid) => {
     if (isValid) {
       // 发送请求
+      post('/api/auth/register',{
+        username: form.username,
+        password: form.password,
+        email: form.email,
+        code: form.code
+      }, (message) => {
+          ElMessage.success(message)
+          router.push('/') // 登录界面
+      })
     } else {
       ElMessage.warning('请完整填写注册表单内容! ')
     }
@@ -150,5 +159,4 @@ const validateEmail = () => {
 
 </script>
 <style scoped>
-
 </style>
