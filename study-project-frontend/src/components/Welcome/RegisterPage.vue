@@ -28,7 +28,10 @@
               </el-input>
             </el-col>
             <el-col :span="6">
-              <el-button type="success"  @click="validateEmail" :disabled="!isEmailValid">获取验证码</el-button>
+              <el-button type="success"  @click="validateEmail"
+                         :disabled="!isEmailValid || coldTime > 0">
+                {{coldTime > 0 ? '请稍后' + coldTime + '秒' : '获取验证码'}}
+              </el-button>
             </el-col>
           </el-row>
         </el-form-item>
@@ -154,8 +157,13 @@ const validateEmail = () => {
     email: form.email
   }, (message) => {
     ElMessage.success(message)
+    coldTime.value = 60
+    setInterval(() => coldTime.value--, 1000)
   })
 }
+
+// 获取验证码60s不能点击
+const coldTime = ref(0)
 
 </script>
 <style scoped>
