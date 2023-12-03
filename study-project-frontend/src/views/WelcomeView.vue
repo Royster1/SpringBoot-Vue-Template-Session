@@ -12,7 +12,7 @@
     <div style="width: 400px; z-index: 1">
       <router-view v-slot:="{ Component}">
         <transition name="el-fade-in-linear" mode="out-in">
-          <component :is="Component"/>
+          <component :is="Component" style="height: 100%"/>
         </transition>
       </router-view>
     </div>
