@@ -20,7 +20,7 @@
         <el-checkbox v-model="form.remember" label="记住我" />
       </el-col>
       <el-col :span="12" style="text-align: right">
-        <el-link style="font-size: 12px">忘记密码?</el-link>
+        <el-link @click="router.push('/forget')" style="font-size: 12px">忘记密码?</el-link>
       </el-col>
     </el-row>
 
