@@ -2,7 +2,7 @@
   <div style="width: 100vw;height: 100vh;overflow: hidden;display: flex">
     <div style="flex: 1">
       <el-image @dragstart.prevent style="width: 100%;height: 100%;" fit="cover"
-                src="./public/hehua.jpg"></el-image>
+                src="/hehua.jpg"></el-image>
     </div>
     <div class="welcome-title">
       <div style="font-size: 30px;font-weight: bold">欢迎来到我们的学习平台</div>
