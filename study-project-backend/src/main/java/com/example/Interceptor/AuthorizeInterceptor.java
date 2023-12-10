@@ -13,23 +13,21 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// 拦截器
-@Component // 注册为bean
+@Component
 public class AuthorizeInterceptor implements HandlerInterceptor {
-
     @Resource
-    UserMapper userMapper;
+    UserMapper mapper;
 
-    // 处理前
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
         SecurityContext context = SecurityContextHolder.getContext();
         Authentication authentication = context.getAuthentication();
-        User user = (User) authentication.getPrincipal();
+        User user = (User)authentication.getPrincipal();
         String username = user.getUsername();
-        AccountUser account = userMapper.findAccountUserByNameOrEmail(username);
-        request.getSession().setAttribute("account", account); // Controller层可以拿到数据
+        System.out.println(username);
+        AccountUser account = mapper.findAccountUserByNameOrEmail(username);
+        System.out.println(account);
+        request.getSession().setAttribute("account", account);
         return true;
     }
 }

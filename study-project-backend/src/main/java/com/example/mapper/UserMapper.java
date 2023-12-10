@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper {
-    @Select("select * from db_account where username =#{text} or email = #{text}")
+    @Select("select * from db_account where username = #{text} or email = #{text}")
     Account findAccountByNameOrEmail(String text); // 用户名或者邮箱登录
 
     @Insert("insert into db_account(email, username, password) values (#{email}, #{username}, #{password})")
@@ -18,6 +18,6 @@ public interface UserMapper {
     @Update("update db_account set password = #{password} where email = #{email}")
     int resetPasswordByEmail(String password, String email);
 
-    @Select("select * from db_account where username =#{text} or email = #{text}")
+    @Select("select * from db_account where username = #{text} or email = #{text}")
     AccountUser findAccountUserByNameOrEmail(String text);
 }

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import {useStore} from '../stores'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,6 +29,19 @@ const router = createRouter({
       component: () => import('@/views/IndexView.vue')
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  const store = useStore()
+  if(store.auth.user != null && to.name.startsWith('welcome-')) { // 用户已登录, 不让用户回去welcome类页面
+    next('/index')
+  } else if(store.auth.user == null && to.fullPath.startsWith('/index')) { // 没有登录与先去index
+    next('/')
+  } else if(to.matched.length === 0){ // 没有该路径
+    next('/index')
+  } else {
+    next()
+  }
 })
 
 export default router

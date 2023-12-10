@@ -18,12 +18,11 @@ function post(url, data, success, failure = defaultFailure, error = defaultError
     }).catch(error)
 }
 
-
-function get(url, success, error = defaultError, failure = defaultFailure){
-    axios.post(url, {
-        withCredentials: true // 发起请求是否携带cookie
+function get(url, success, failure = defaultFailure, error = defaultError) {
+    axios.get(url, {
+        withCredentials: true
     }).then(({data}) => {
-        if (data.success)
+        if(data.success)
             success(data.message, data.status)
         else
             failure(data.message, data.status)
